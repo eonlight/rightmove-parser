@@ -1,0 +1,6 @@
+*.sqlite
+*.db
+*.json
+.env
+*.cookies
+.DS_Store
