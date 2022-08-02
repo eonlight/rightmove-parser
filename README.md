@@ -1,6 +1,6 @@
 # rightmove-parser
 
-**LOGIN NOT WORKING YET**
+**CAPTCH BDA might need to be changed regularly**
 
 ## Setup
 
