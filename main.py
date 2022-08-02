@@ -45,7 +45,7 @@ def get_captcha():
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:103.0) Gecko/20100101 Firefox/103.0",
     }
 
-    r = session.post(url, data, headers=headers,  proxies={"https": "http://127.0.0.1:8080"}, verify=False)
+    r = session.post(url, data, headers=headers)#, proxies={"https": "http://127.0.0.1:8080"}, verify=False)
     print(r.text)
 
     t = json.loads(r.text)["token"]
@@ -66,7 +66,7 @@ def login():
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:103.0) Gecko/20100101 Firefox/103.0",
         "Origin": "https://www.rightmove.co.uk"
     }
-    r = session.post(url, data, headers=headers, proxies={"https": "http://127.0.0.1:8080"}, verify=False)
+    r = session.post(url, data, headers=headers)#, proxies={"https": "http://127.0.0.1:8080"}, verify=False)
     print(r.text)
     return r.status_code == 200
 
@@ -83,7 +83,7 @@ def shortlist():
         "Referer": "https://www.rightmove.co.uk/",
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:103.0) Gecko/20100101 Firefox/103.0",
     }
-    r = session.get(url, headers=headers, proxies={"https": "http://127.0.0.1:8080"}, verify=False)
+    r = session.get(url, headers=headers)#, proxies={"https": "http://127.0.0.1:8080"}, verify=False)
     if r.status_code != 200:
         return None
 
@@ -92,7 +92,7 @@ def shortlist():
     if p["totalPages"] > i:
         i+=1
         url = "https://my.rightmove.co.uk/shortlist?channel=RES_BUY&page=" + str(i) + "&sortBy=DATE_ADDED&orderBy=DESC"
-        r = session.get(url, headers=headers, proxies={"https": "http://127.0.0.1:8080"}, verify=False)
+        r = session.get(url, headers=headers)#, proxies={"https": "http://127.0.0.1:8080"}, verify=False)
         if r.status_code == 200:
             p["properties"] += json.loads(r.text)["properties"]
 
@@ -104,7 +104,7 @@ def remove_shortlist(ps):
 
     url = "https://my.rightmove.co.uk/property/saved/" + ",".join(ps)
     print("remove: " + url)
-    r = session.delete(url, proxies={"https": "http://127.0.0.1:8080"}, verify=False)
+    r = session.delete(url)#, proxies={"https": "http://127.0.0.1:8080"}, verify=False)
     return r.status_code == 204
 
 def save_property(i):
@@ -112,7 +112,7 @@ def save_property(i):
     data = '{"propertyId":"' + str(i) + '"}'
     url = "https://www.rightmove.co.uk/properties/api/user/savedProperty"
     headers = {"Content-Type": "application/json"}
-    r = session.post(url, data, headers=headers, proxies={"https": "http://127.0.0.1:8080"}, verify=False)
+    r = session.post(url, data, headers=headers)#, proxies={"https": "http://127.0.0.1:8080"}, verify=False)
     print(r.text)
     return r.status_code == 200
 
